@@ -10,14 +10,13 @@ public class LoadSceneTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(LoadLevel());
+        //StartCoroutine(LoadLevel());
+        if(collision.CompareTag("PossessedRobot"))
+            LoadLevel();
     }
 
-    IEnumerator LoadLevel()
+    void LoadLevel()
     {
-        anim.SetTrigger("Fade");
-        yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(sceneId);
         if (sceneId == 2)
         {
             AudioManager.instance.Stop("MainMenu");
@@ -28,6 +27,25 @@ public class LoadSceneTrigger : MonoBehaviour
             AudioManager.instance.Stop("Levels");
             AudioManager.instance.Play("Boss");
         }
+        SceneManager.LoadScene(sceneId);
         GameManager.instance.player.transform.position = new Vector3(0.5f, 0.5f, 0);
     }
+
+    //IEnumerator LoadLevel()
+    //{
+    //    anim.SetTrigger("Fade");
+    //    yield return new WaitForSeconds(1f);
+    //    SceneManager.LoadScene(sceneId);
+    //    if (sceneId == 2)
+    //    {
+    //        AudioManager.instance.Stop("MainMenu");
+    //        AudioManager.instance.Play("Levels");
+    //    }
+    //    else if (sceneId == 3)
+    //    {
+    //        AudioManager.instance.Stop("Levels");
+    //        AudioManager.instance.Play("Boss");
+    //    }
+    //    GameManager.instance.player.transform.position = new Vector3(0.5f, 0.5f, 0);
+    //}
 }

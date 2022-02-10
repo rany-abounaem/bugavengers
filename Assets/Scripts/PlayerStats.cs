@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -86,7 +87,7 @@ public class PlayerStats : MonoBehaviour
     {
         level++;
         levelUpdated.Invoke();
-        attackPower = Mathf.RoundToInt(20 * Mathf.Log10(level) + 10);
+        attackPower = Mathf.RoundToInt(10 * Mathf.Log10(level) + 1);
         maxHealth = Mathf.RoundToInt(50 * Mathf.Log10(level) + 100);
         health = maxHealth;
     }
@@ -95,23 +96,26 @@ public class PlayerStats : MonoBehaviour
     {
         level--;
         levelUpdated.Invoke();
-        attackPower = Mathf.RoundToInt(20 * Mathf.Log10(level) + 10);
+        attackPower = Mathf.RoundToInt(20 * Mathf.Log10(level) + 1);
         maxHealth = Mathf.RoundToInt(50 * Mathf.Log10(level) + 100);
         health = maxHealth;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy") && gameObject.tag == "PossessedRobot")
-        {
-            Die();
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Enemy") && gameObject.tag == "PossessedRobot")
+    //    {
+    //        Die();
+    //    }
+    //}
 
     public void Die()
     {
+        //gameObject.SetActive(false);
+        gameObject.transform.position = new Vector3(0.5f, 0.5f, 0);
+        health = maxHealth;
         RemoveExperience(10);
-        GameManager.instance.StartCoroutine(GameManager.instance.Respawn());
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     

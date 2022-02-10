@@ -26,7 +26,11 @@ public class BossRoomDialogue : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameManager.instance.inputEnabled = false;
+        if(gameObject.CompareTag("PossessedRobot"))
+        {
+            GameManager.instance.inputEnabled = false;
+        }
+       
 
     }
 }

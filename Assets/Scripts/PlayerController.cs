@@ -37,6 +37,10 @@ public class PlayerController : MonoBehaviour
     {
         horizontalAxisInput = Input.GetAxisRaw("Horizontal");
         verticalAxisInput = Input.GetAxisRaw("Vertical");
+        moveRight = false;
+        moveDown = false;
+        moveUp = false;
+        moveLeft = false;
 
         if (GameManager.instance.inputEnabled)
         {
@@ -55,7 +59,7 @@ public class PlayerController : MonoBehaviour
                 Bullet instBulletScript = instantiatedBullet.GetComponent<Bullet>();
                 instBulletScript.damage *= PlayerStats.instance.attackPower;
                 int forceValue = faceRight ? 1 : -1;
-                instBulletRb.AddForce(new Vector2(forceValue, 0) * 200);
+                instBulletRb.AddForce(new Vector2(forceValue, 0) * 300);
                 bulletDelay = 0.16f;
             }
         }

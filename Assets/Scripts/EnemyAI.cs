@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -82,7 +83,7 @@ public class EnemyAI : MonoBehaviour
                 Bullet instBulletScript = instantiatedBullet.GetComponent<Bullet>();
                 instBulletScript.damage *= attackPower;
                 int forceValue = faceRight ? 1 : -1;
-                instBulletRb.AddForce(new Vector2(forceValue, 0) * 200);
+                instBulletRb.AddForce(new Vector2(forceValue, 0) * 300);
             }
         }
         //rb.AddForce((player.transform.position - transform.position).normalized * Time.deltaTime * moveSpeed);
@@ -116,10 +117,16 @@ public class EnemyAI : MonoBehaviour
 
     public void Die()
     {
-        AudioManager.instance.Play("EvilRobotDeath");
-        gameObject.GetComponent<Animator>().SetTrigger("Death");
+        //AudioManager.instance.Play("EvilRobotDeath");
+        //gameObject.GetComponent<Animator>().SetTrigger("Death");
+        //PlayerStats.instance.AddExperience(experience);
+        //Invoke("GoInactive", 1f);
         PlayerStats.instance.AddExperience(experience);
-        Invoke("GoInactive", 1f);
+        gameObject.SetActive(false);
+        if (gameObject.name == "Boss")
+        {
+            gameObject.GetComponent<GameEnder>().FinishGame();
+        }
     }
 
     public void GoInactive()

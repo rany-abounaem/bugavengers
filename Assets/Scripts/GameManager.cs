@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject evilRobot;
     public GameObject enemyBullet;
     public bool inputEnabled = false;
+
     void Awake()
     {
         if (instance==null)
@@ -41,13 +42,15 @@ public class GameManager : MonoBehaviour
         inputEnabled = true;
     }
 
-    public IEnumerator Respawn()
-    {
-        player.SetActive(false);
-        yield return new WaitForSeconds(2f);
-        player.transform.position = respawnPosition;
-        player.tag = "Player";
-        player.GetComponent<PlayerController>().transformed = false;
-        player.SetActive(true);
-    }
+    
+
+    //public IEnumerator Respawn()
+    //{
+    //    player.SetActive(false);
+    //    yield return new WaitForSeconds(2f);
+    //    player.transform.position = respawnPosition;
+    //    player.tag = "Player";
+    //    player.GetComponent<PlayerController>().transformed = false;
+    //    player.SetActive(true);
+    //}
 }

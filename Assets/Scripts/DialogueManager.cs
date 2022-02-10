@@ -5,6 +5,7 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
+    public bool triggered = false;
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI buttonText;
@@ -43,6 +44,10 @@ public class DialogueManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameManager.instance.inputEnabled = false;
+        if (collision.CompareTag("PossessedRobot") && !triggered)
+        {
+            triggered = true;
+            GameManager.instance.inputEnabled = false;
+        }
     }
 }
